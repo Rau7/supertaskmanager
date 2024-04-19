@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  backend:
+    build: ./stmback
+    environment:
+      - POSTGRES_DB=stmdb
+      - POSTGRES_USER=stmuser
+      - POSTGRES_PASSWORD=stmpassword
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+
+  frontend:
+    build: ./stmfront
+    ports:
+      - "8080:80"
+
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: stmdb
+      POSTGRES_USER: stmuser
+      POSTGRES_PASSWORD: stmpassword
+    ports:
+      - "5432:5432"
